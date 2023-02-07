@@ -166,11 +166,11 @@ class _HomePageState extends State<HomePage> {
                         return Card(
                           elevation: 5,
                           child: ListTile(
+
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 7, horizontal: 8),
                             tileColor: Theme.of(context).primaryColor,
                             leading: Card(
-
                               child: Container(
                                 height: 60,
                                 alignment: Alignment.center,
