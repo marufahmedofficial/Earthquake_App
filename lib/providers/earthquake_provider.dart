@@ -8,7 +8,7 @@ class EarthquakeProvider extends ChangeNotifier{
 
   EarthquakeModel? earthquakeModel;
   String fromDate ="2022-08-01";
-  String toDate ="2023-08-05";
+  String toDate ="2022-08-05";
   String magnitude = "5";
 
   List<int> magnitudeList =[3,4,5,6,7,8,9,10];

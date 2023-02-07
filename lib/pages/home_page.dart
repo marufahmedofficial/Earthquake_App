@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = "/";
+
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -44,7 +45,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Earthquake List"),
+        title: const Text("Earthquake List",style: TextStyle(color: Colors.redAccent),),
+        centerTitle: true,
+        backgroundColor: Colors.white60,
       ),
       body: Column(
         children: [
@@ -57,12 +60,12 @@ class _HomePageState extends State<HomePage> {
                   child: InkWell(
                     onTap: _showFromDatePicker,
                     child: Container(
-                      decoration: BoxDecoration(color: Colors.deepOrange),
+                      decoration: const BoxDecoration(color: Colors.deepOrange),
                       alignment: Alignment.center,
                       height: 60,
                       child: Text(
-                        _fromDate == null ? "From" : "${_fromDate.toString()}",
-                        style: TextStyle(color: Colors.white),
+                        _fromDate == null ? "From" : _fromDate.toString(),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
@@ -75,12 +78,12 @@ class _HomePageState extends State<HomePage> {
                   child: InkWell(
                     onTap: _showToDatePicker,
                     child: Container(
-                      decoration: BoxDecoration(color: Colors.deepOrange),
+                      decoration: const BoxDecoration(color: Colors.deepOrange),
                       alignment: Alignment.center,
                       height: 60,
                       child: Text(
-                        _toDate == null ? "To" : "${_toDate.toString()}",
-                        style: TextStyle(color: Colors.white),
+                        _toDate == null ? "To" : _toDate.toString(),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
@@ -91,12 +94,12 @@ class _HomePageState extends State<HomePage> {
                 child: Card(
                   elevation: 5,
                   child: Container(
-                    decoration: BoxDecoration(color: Colors.deepOrange),
+                    decoration: const BoxDecoration(color: Colors.deepOrange),
                     alignment: Alignment.center,
                     height: 60,
                     child: DropdownButton(
                       alignment: Alignment.center,
-                      hint: Text(
+                      hint: const Text(
                         "0",
                         style: TextStyle(color: Colors.white),
                       ),
@@ -104,14 +107,14 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(20),
                       dropdownColor: Colors.deepOrange,
                       value: magnitudeValue,
-                      icon: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: const Icon(
+                      icon: const Padding(
+                        padding: EdgeInsets.all(12),
+                        child: Icon(
                           Icons.keyboard_arrow_down,
                           color: Colors.white,
                         ),
                       ),
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.w500),
                       items: provider.magnitudeList.map((items) {
                         return DropdownMenuItem(
@@ -121,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                       }).toList(),
                       onChanged: (newValue) {
                         setState(() {
-                          magnitudeValue = newValue as int?;
+                          magnitudeValue = newValue;
                         });
                       },
                     ),
@@ -138,10 +141,10 @@ class _HomePageState extends State<HomePage> {
                       provider.getEarthquakeData();
                     },
                     child: Container(
-                      decoration: BoxDecoration(color: Colors.deepOrange),
+                      decoration: const BoxDecoration(color: Colors.deepOrange),
                       alignment: Alignment.center,
                       height: 60,
-                      child: Text(
+                      child: const Text(
                         "Go",
                         style: TextStyle(color: Colors.white),
                       ),
@@ -154,25 +157,28 @@ class _HomePageState extends State<HomePage> {
           provider.earthquakeModel != null
               ? Expanded(
                   child: ListView.builder(
-                      padding: EdgeInsets.all(10),
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.all(10),
                       itemCount: provider.earthquakeModel!.features!.length,
                       itemBuilder: (context, index) {
                         final model =
                             provider.earthquakeModel!.features![index];
                         return Card(
+                          elevation: 5,
                           child: ListTile(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 8),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 7, horizontal: 8),
                             tileColor: Theme.of(context).primaryColor,
                             leading: Card(
+
                               child: Container(
                                 height: 60,
                                 alignment: Alignment.center,
                                 width: 60,
-                                decoration: BoxDecoration(color: Colors.white),
+                                decoration: const BoxDecoration(color: Colors.white),
                                 child: Text(
                                   model.properties!.mag.toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18),
                                 ),
@@ -182,18 +188,18 @@ class _HomePageState extends State<HomePage> {
                               model.properties!.place == null
                                   ? "No place"
                                   : "${model.properties!.place}",
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                             subtitle: Text(
                               getFormattedDate(
                                 model.properties!.time!,
                               ),
-                              style: TextStyle(color: Colors.white70),
+                              style: const TextStyle(color: Colors.white70),
                             ),
                           ),
                         );
                       }))
-              : Text("No data found"),
+              : const Text("No data found"),
         ],
       ),
     );
@@ -226,4 +232,6 @@ class _HomePageState extends State<HomePage> {
       });
     }
   }
+
+
 }
